@@ -14,7 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return li
   }
-//event listner
+
+  //update the ranking 
+const  updateCounter = () => {
+    skills.style.counterReset = "none";
+
+
+    setTimeout(() => {
+        skills.style.counterReset = "rank";
+      }, 0);
+
+}
+
+
+//event listners
 
 
 
@@ -37,10 +50,42 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
 
 
-    const skill = skillModal.querySelector('#skill').ariaValueMax.trim()
+    const skill = skillModal.querySelector('#skill').value.trim()
 
     if(skill) {
-        console.log(skill)
+        //console.log(skill)
+        //create the list item to skill list
+        skills.appendChild(createListItem(skill));
+
+        ///close the modal
+
+        skillModal.close()
+
+        /// reset the form
+        event.target.reset()
+
     }
+  })
+
+  //handle remove item
+
+  skills.addEventListener('click', (event) => {
+
+    //check if the clicked element is the remove button
+
+    if(event.target.tagName === 'BUTTON' ){
+        console.log(event.target);
+
+        const li = event.target.closest('li');
+
+        //remove the list from skills
+        skills.removeChild(li)
+
+        //update thr ranking after the list is modified
+        updateCounter()
+
+    }
+
+
   })
 });
